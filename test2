@@ -1,0 +1,10 @@
+SELECT mac_id,
+min(dateadded) as 'First Connect Timestamp' ,
+max(dateadded) as 'Latest Connect Timestamp' ,
+min(datetimestamp) as 'First Reading Timestamp' ,
+max(datetimestamp) as 'Latest Reading Timestamp',
+ROUND((TIMESTAMPDIFF(Hour, MAX(datetimestamp), MAX(dateadded)))/24,1) AS 'Days Lagging'
+FROM <table>
+WHERE mac_id Like 'EN%'
+AND YEAR(dateadded) BETWEEN 2012 AND 2026
+GROUP BY mac_id;
